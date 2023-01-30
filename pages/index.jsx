@@ -14,6 +14,7 @@ export default function Home() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [memos, setMemos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const onNameChange = (event) => {
     setName(event.target.value);
@@ -76,11 +77,15 @@ export default function Home() {
         );
 
         console.log("buying coffee..")
+
+        
         const coffeeTxn = await buyMeACoffee.buyCoffee(
           name ? name : "anon",
           message ? message : "Enjoy your coffee!",
           {value: ethers.utils.parseEther("0.001")}
         );
+
+        setLoading(true);
 
         await coffeeTxn.wait();
 
@@ -95,6 +100,8 @@ export default function Home() {
     } catch (error) {
       console.log(error);
     }
+
+    setLoading(false);
   };
 
   // Function to fetch all memos stored on-chain.
@@ -197,7 +204,7 @@ export default function Home() {
               <br/>
               <div class="formgroup">
                 <label>
-                  Send Albert a message
+                  Send Cheslav a message
                 </label>
                 <br/>
 
@@ -210,13 +217,13 @@ export default function Home() {
                 >
                 </textarea>
               </div>
-              <div>
+              <div>{!loading ?
                 <button
                   type="button"
                   onClick={buyCoffee}
                 >
                   Send 1 Coffee for 0.001ETH
-                </button>
+                </button> : <div>loading...</div>}
               </div>
             </form>
           </div>
@@ -227,7 +234,7 @@ export default function Home() {
 
       {currentAccount && (<h1>Memos received</h1>)}
 
-      {currentAccount && (memos.map((memo, idx) => {
+      {currentAccount && ([...memos].reverse().map((memo, idx) => {
         return (
           <div key={idx} style={{border:"2px solid", "border-radius":"5px", padding: "5px", margin: "5px"}}>
             <p style={{"font-weight":"bold"}}>"{memo.message}"</p>
