@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
   // Contract Address & ABI
-  const contractAddress = "0xDBa03676a2fBb6711CB652beF5B7416A53c1421D";
+  const contractAddress = "0xD29906Bdf3A68588b39E44bd2e89AC31Cb3034b9";
   const contractABI = abi.abi;
 
   // Component state
@@ -55,6 +55,8 @@ export default function Home() {
       });
 
       setCurrentAccount(accounts[0]);
+
+        getMemos();
     } catch (error) {
       console.log(error);
     }
@@ -166,14 +168,14 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Buy Albert a Coffee!</title>
+        <title>Buy Cheslav a Coffee!</title>
         <meta name="description" content="Tipping site" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Buy Albert a Coffee!
+          Buy Cheslav a Coffee!
         </h1>
         
         {currentAccount ? (
@@ -240,7 +242,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Created by @thatguyintech for Alchemy's Road to Web3 lesson two!
+          Created for Alchemy's Road to Web3 lesson two!
         </a>
       </footer>
     </div>
